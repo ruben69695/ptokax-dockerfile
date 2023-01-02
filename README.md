@@ -41,14 +41,25 @@ docker exec -it ptokax bash
 
 ## ⛏️ HOW-TO: Connect to the DC Hub
 
+<details>
+  <summary>Screenshots for connecting to hub</summary>
+
 - We can use the airdc++, or we can use the eiskaltdc++
 ![Create new hub connection](https://i.imgur.com/JhM1NWp.png)
 ![Connect to the new hub connection](https://i.imgur.com/aMQG26Z.png)
+</details>
 
 ## ⛏️ HOW-TO: See available commands
 
 - In the hub chat, we can see a list of available commands for our user sending the message (command) **!help**
+```zsh
+!help
+```
+<details>
+  <summary>Screenshots for help</summary>
+  
 ![See available commands](https://i.imgur.com/deIkbjH.png)
+</details>
 
 ## ⛏️ HOW-TO: create a user
 
