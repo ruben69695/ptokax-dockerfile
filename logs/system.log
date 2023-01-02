@@ -1,0 +1,9 @@
+Sun Jan  1 20:50:30 2023 - Resolving of hostname '<Enter hub address here>' has failed.
+Check the address please.
+Sun Jan  1 20:50:30 2023 - Serving started
+Sun Jan  1 20:51:39 2023 - Received signal SIGTERM ending...
+Sun Jan  1 20:51:39 2023 - Serving stopped (UL: 361 [5], DL: 276)
+Sun Jan  1 20:59:08 2023 - Serving started
+Sun Jan  1 21:20:03 2023 - Received signal SIGTERM ending...
+Sun Jan  1 21:20:03 2023 - Serving stopped (UL: 650 [0], DL: 755)
+Mon Jan  2 13:15:38 2023 - Serving started
