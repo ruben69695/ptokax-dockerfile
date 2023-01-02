@@ -1,22 +1,27 @@
-# PtokaX in Docker
+# 🐋 PtokaX in Docker
 This is a Dockerfile to be able to build an image of PtokaX 0.5.3.0 (20th anniversary edition) and to create a container of the image. 
-
-Base configuration for PtokaX under config directory in `Settings.pxt` text file, to be able to bind it for the container and preserve config between container recreations or to be able to create backups. 
-
-**Settings** has been prepared to host a **private PtokaX Direct Connect Hub**, if we want to make it public, we have to change the `Settings.pxt` file.
 
 ## 📦 Dependencies
 - Docker
 
-## ⛏️ Getting started
+## ℹ️ Information
+- There's a default user created to be able to operate with the hub: User -> main | Password -> main123, when not needed anymore because we've created at least one master user, we can delete it with a chat command.
+- PtokaX logs are stored on logs directory, this will be binded with the container, to be able to see it from host machine.
+- All PtokaX configuration are under config directory, this will be binded with the container, to be able to see the settings from host machine, change settings when container is stopped, or don't lose settings when container is deleted/re-created.
+- **Settings** has been prepared to host a **private PtokaX Direct Connect Hub**, if we want to make it public, we have to change the `Settings.pxt` file.
 
-1. Build image
-```bash
+## ⚠️ Important
+- If we want to change any setting from the `.pxt`, `.pxb` files, we must stop the container first. Because all manually  changed settings or using PtokaX CLI tool, when container and PtokaX main process is running are not applied on the fly and the most important, when PtokaX service or container stops the changes are overriden with the in memory values of the main process of PtokaX.
+
+## ⛏️ HOW-TO: Build and start the container
+
+1. Build image from dockerfile
+```zsh
 docker build -t ptokax:latest .
 ```
 
-2. Create the container
-```bash
+2. Create the container based on the image
+```zsh
 docker create --name ptokax \
         -p 54400:411 \
         --mount type=bind,src=/home/rubenarrebola/Development/ptokax/config,target=/src/cfg \
@@ -25,58 +30,38 @@ docker create --name ptokax \
 ```
 
 3. Start the created container
-```bash
+```zsh
 docker start ptokax
 ```
 
-4. Connect to the container shell
-```bash
+4. If we have to connect to the container shell, we can do it like this
+```zsh
 docker exec -it ptokax bash
 ```
 
-5. Create our first user using PtokaX CLI steps menu
-```bash
-./PtokaX -m
+## ⛏️ HOW-TO: Connect to the DC Hub
+
+- We can use the airdc++, or we can use the eiskaltdc++
+![Create new hub connection](https://i.imgur.com/JhM1NWp.png)
+![Connect to the new hub connection](https://i.imgur.com/aMQG26Z.png)
+
+## ⛏️ HOW-TO: See available commands
+
+- In the hub chat, we can see a list of available commands for our user sending the message (command) **!help**
+![See available commands](https://i.imgur.com/deIkbjH.png)
+
+## ⛏️ HOW-TO: create a user
+
+- Before create a new user we have to understand the available profiles for the user, this declares what the user can do in the hub. The available profiles are: `master | operator | vip | reg`
+
+
+- In the hub chat, with our **main** user (profile: master), we can create users directly from the chat. As we saw the !help command displays a list of commands, and the command to create new users is the next one: **!addreguser**. So if want a friend to access our hub, we can create a new user for him/her. Example:
 ```
-
-```bash
-PtokaX DC Hub 0.5.3.0 built on Jan  1 2023 16:43:11
-
-Welcome to PtokaX configuration setup.
-Directory for PtokaX configuration is: /src
-When this directory is wrong, then exit this setup.
-To specify correct configuration directory start PtokaX with -c configdir parameter.
-
-Available options:
-1. Basic setup. Only few things required for PtokaX run.
-2. Complete setup. Long setup, where you can change all PtokaX setings.
-3. Add registered user.
-4. Exit this setup.
-
-Your choice: 3
-Please enter Nick for new Registered User (Maximal length 64 characters. Characters |, $ and space are not allowed): ruben
-Please enter Password for new Registered User (Maximal length 64 characters. Character | is not allowed): ruben123
-
-Available profiles: 
-0 - Master
-1 - Operator
-2 - VIP
-3 - Reg
-Please enter Profile number for new Registered User: 0
-Registered User with Nick 'ruben' Password 'ruben123' and Profile '0' was added.
-
-Available options:
-1. Basic setup. Only few things required for PtokaX run.
-2. Complete setup. Long setup, where you can change all PtokaX setings.
-3. Add registered user.
-4. Exit this setup.
-
-Your choice: 4
-PtokaX DC Hub 0.5.3.0 ending...
+!addreguser <nick> <password> <profilename>
 ```
-
-6. With our new user, we can connect using a client to our new hub, for example airdc++ or eiskaltdc++
-
+```
+!addreguser ruben ruben123 reg
+```
 
 ## 💻 Environment
 - Fedora 37
